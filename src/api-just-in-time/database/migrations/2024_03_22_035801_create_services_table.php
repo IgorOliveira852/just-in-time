@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->text('description');
             $table->enum('status', ['ativo', 'inativo'])->default('ativo');
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
         });
     }

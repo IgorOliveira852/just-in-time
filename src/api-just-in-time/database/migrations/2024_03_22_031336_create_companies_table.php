@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cnpj')->unique();
             $table->text('endereco');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
