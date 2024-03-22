@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Appointment\CreateAppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Service\CreateServiceController;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ Route::post('/login', [LoginController::class, 'submit']);
 Route::post('/login/verify', [LoginController::class, 'verify']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-
+    Route::post('/agendamento', CreateAppointmentController::class);
 });
 
 Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
