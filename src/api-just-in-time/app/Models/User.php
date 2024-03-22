@@ -49,4 +49,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class);
     }
+
+    public function isAdminOrAttendant(): bool
+    {
+        return in_array($this->role, [UserRoleEnum::ADMIN->value, UserRoleEnum::ATTENDANT->value]);
+    }
+
+    public function isClient(): bool
+    {
+        return $this->role === UserRoleEnum::CLIENT->value;
+    }
 }

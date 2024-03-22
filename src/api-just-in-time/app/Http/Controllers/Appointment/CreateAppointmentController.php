@@ -22,13 +22,13 @@ class CreateAppointmentController extends Controller
         ]);
 
         $provider = User::find($request->provider_id);
-        if (!in_array($provider->role, [UserRoleEnum::ADMIN, UserRoleEnum::ATTENDANT])) {
+        if (!$provider || !$provider->isAdminOrAttendant()) {
             return response()->json(['message' => 'O provedor deve ser um funcionário da empresa.'], 403);
         }
 
         // TODO: ainda vou pensar sobre essa parte
         $client = Auth::user();
-        if ($client->role !== UserRoleEnum::CLIENT) {
+        if (!$client->isClient()) {
             return response()->json(['message' => 'Apenas clientes podem criar agendamentos.'], 403);
         }
 
