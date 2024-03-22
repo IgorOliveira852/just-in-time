@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Service\CreateServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ Route::post('/login/verify', [LoginController::class, 'verify']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
 });
+
+Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
