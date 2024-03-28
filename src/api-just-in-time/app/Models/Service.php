@@ -10,7 +10,15 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'preco', 'duracao', 'descricao', 'status', 'company_id'];
+    protected $fillable = [
+        'nome',
+        'preco',
+        'duracao',
+        'descricao',
+        'status',
+        'company_id',
+        'user_id'
+    ];
 
     public function company(): BelongsTo
     {
