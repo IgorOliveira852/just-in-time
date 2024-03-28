@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Appointment\CreateAppointmentController;
+use App\Http\Controllers\Appointment\ListAppointmentController;
+use App\Http\Controllers\Appointment\UpdateAppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Service\CreateServiceController;
 use Illuminate\Http\Request;
@@ -17,11 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// rotas de login
 Route::post('/login', [LoginController::class, 'submit']);
 Route::post('/login/verify', [LoginController::class, 'verify']);
 
+// rotas do usuario cliente
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::post('/agendamento', CreateAppointmentController::class);
+    Route::get('agendamentos', ListAppointmentController::class); // rota para listar um agendamento
+    Route::post('criar-agendamento', CreateAppointmentController::class); // rota para criar um agendamento
+    Route::put('agendamentos/{id}', UpdateAppointmentController::class); // rota de update de agendamento
+
 });
 
 Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
