@@ -10,7 +10,15 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['started_at', 'ends_at', 'service_id', 'status', 'company_id', 'client_id', 'provider_id'];
+    protected $fillable = [
+        'started_at',
+        'ends_at',
+        'service_id',
+        'status',
+        'company_id',
+        'client_id',
+        'provider_id'
+    ];
 
     public function service(): BelongsTo
     {

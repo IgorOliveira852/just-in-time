@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
+use App\Rules\ProviderAvailable;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class CreateAppointmentController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
-            'started_at' => 'required|date_format:Y-m-d H:i',
+            'started_at' => 'required', 'date_format:Y-m-d H:i',
             'service_id' => 'required|exists:services,id',
             'provider_id' => 'required|exists:users,id',
         ]);
@@ -35,6 +36,10 @@ class CreateAppointmentController extends Controller
         $service = Service::find($request->servico_id);
         $startedAt = Carbon::createFromFormat('Y-m-d H:i', $request->started_at);
         $endsAt = $startedAt->copy()->addMinutes($service->duracao);
+
+        $request->validate([
+            'started_at' => [new ProviderAvailable($request->provider_id, $request->started_at, $endsAt)],
+        ]);
 
         $appointment = new Appointment([
             'started_at' => $startedAt,
