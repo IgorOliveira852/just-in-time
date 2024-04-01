@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Appointment\CreateAppointmentController;
 use App\Http\Controllers\Appointment\ListAppointmentController;
+use App\Http\Controllers\Appointment\UnavailableTimesController;
 use App\Http\Controllers\Appointment\UpdateAppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Service\CreateServiceController;
@@ -31,3 +32,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
+Route::post('/horarios-indisponiveis', UnavailableTimesController::class)->middleware('checkadmin');
