@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('criar-agendamento', CreateAppointmentController::class); // rota para criar um agendamento
     Route::put('agendamentos/{id}', UpdateAppointmentController::class); // rota de editar de agendamento
 
-    Route::get('serviços/{companyId}', ListCompanyServicesController::class);
+    Route::get('serviços/{companyId}', ListCompanyServicesController::class); // rota para listar os serviços de cada empresa
 });
 
 Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
