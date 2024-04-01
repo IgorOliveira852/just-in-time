@@ -5,7 +5,6 @@ use App\Http\Controllers\Appointment\ListAppointmentController;
 use App\Http\Controllers\Appointment\UpdateAppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Service\CreateServiceController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +26,7 @@ Route::post('/login/verify', [LoginController::class, 'verify']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('agendamentos', ListAppointmentController::class); // rota para listar um agendamento
     Route::post('criar-agendamento', CreateAppointmentController::class); // rota para criar um agendamento
-    Route::put('agendamentos/{id}', UpdateAppointmentController::class); // rota de update de agendamento
+    Route::put('agendamentos/{id}', UpdateAppointmentController::class); // rota de editar de agendamento
 
 });
 
