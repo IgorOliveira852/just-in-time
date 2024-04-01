@@ -6,6 +6,7 @@ use App\Http\Controllers\Appointment\UnavailableTimesController;
 use App\Http\Controllers\Appointment\UpdateAppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Service\CreateServiceController;
+use App\Http\Controllers\Service\ListCompanyServicesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('criar-agendamento', CreateAppointmentController::class); // rota para criar um agendamento
     Route::put('agendamentos/{id}', UpdateAppointmentController::class); // rota de editar de agendamento
 
+    Route::get('serviços/{companyId}', ListCompanyServicesController::class);
 });
 
 Route::post('/servicos', CreateServiceController::class)->middleware('checkadmin');
