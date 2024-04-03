@@ -28,10 +28,10 @@ class NewAppointmentCreated extends Notification
 
     public function toTwilio($notifiable)
     {
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_number = getenv("TWILIO_WHATSAPP_NUMBER");
-        $client = new Client($account_sid, $auth_token);
+        $accountSid = getenv("TWILIO_SID");
+        $authToken = getenv("TWILIO_AUTH_TOKEN");
+        $twilioNumber = getenv("TWILIO_WHATSAPP_NUMBER");
+        $client = new Client($accountSid, $authToken);
 
         $message = "Um novo agendamento foi criado! Detalhes:\n";
         $message .= "Data de início: {$this->appointment->started_at}\n";
@@ -43,7 +43,7 @@ class NewAppointmentCreated extends Notification
         $client->messages->create(
             'whatsapp:+'. $admin->phone, // número do destinatário, não sei se precisa do '+'
             array(
-                'from' => 'whatsapp:' . $twilio_number,
+                'from' => 'whatsapp:' . $twilioNumber,
                 'body' => $message
             )
         );
