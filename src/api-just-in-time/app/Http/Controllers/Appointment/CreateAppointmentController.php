@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Service;
 use App\Models\User;
+use App\Notifications\NewAppointmentCreated;
 use App\Rules\ProviderAvailable;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -52,6 +53,12 @@ class CreateAppointmentController extends Controller
         ]);
 
         $appointment->save();
+
+        $admin = User::where('company_id', $service->company_id)
+            ->whereRole(UserRoleEnum::ADMIN)
+            ->first();
+
+        $admin->notify(new NewAppointmentCreated($appointment));
 
         return response()->json(['message' => 'Agendamento criado com sucesso!', 'appointment' => $appointment], 201);
     }
