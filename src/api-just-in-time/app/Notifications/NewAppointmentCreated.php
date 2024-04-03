@@ -38,7 +38,9 @@ class NewAppointmentCreated extends Notification
         $message .= "Data de término: {$this->appointment->ends_at}\n";
 
         // Buscar o usuário administrador
-        $admin = User::whereRole(UserRoleEnum::ADMIN)->first();
+        $admin = User::where('role', UserRoleEnum::ADMIN)
+            ->where('company_id', $this->appointment->company_id)
+            ->first();
 
         $client->messages->create(
             'whatsapp:+'. $admin->phone, // número do destinatário, não sei se precisa do '+'
